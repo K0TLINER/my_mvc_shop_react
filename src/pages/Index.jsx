@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import { Button, Card, Container, Figure } from "react-bootstrap";
 import Jumbotron from "react-bootstrap";
+import { getProduct } from "../apis/api/product";
+import { getProduct1 } from "../apis/services/product";
 const Index = () => {
+  useEffect(() => {
+    (async () => {
+      await getProduct(1)
+        .then(getProduct1)
+        .then((res) => console.log(res));
+    })();
+  }, []);
   return (
     <Figure>
       <Figure.Image

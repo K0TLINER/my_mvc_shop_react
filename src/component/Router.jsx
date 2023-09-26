@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Index from "./Index";
-import ProductList from "../product/ProductList";
+import Index from "../pages/Index";
+import ProductList from "../pages/product/ProductList";
 
 const Router = () => {
   return (

@@ -1,0 +1,1 @@
+export const DESCRIPTION_TEXT_MAX_SIZE = 20;
