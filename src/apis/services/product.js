@@ -1,35 +1,53 @@
 import { DESCRIPTION_TEXT_MAX_SIZE } from "../../constants/constant";
 
-export const getProduct1 = (product) => {
-  const { productId, productName } = product;
+export const getProductDetail = (product) => {
+  const {
+    productId,
+    productName,
+    productDescription,
+    manufactureDate,
+    price,
+    stock,
+    category,
+    registrationDate,
+  } = product;
   return {
-    productId: productId,
-    productName: productName,
+    id: productId,
+    name: productName,
+    description: productDescription,
+    manufactureDate: manufactureDate ? manufactureDate : "정보없음",
+    price: Number(price).toLocaleString("ko-KR") + "원",
+    stock: Number(stock).toLocaleString("ko-KR") + "개",
+    categoryName: "분류: " + category.categoryName,
+    registrationDate: formatDateTime(registrationDate),
   };
 };
 
 export const getProductThumbnailList = (products) => {
-  return products.map((product) => {
-    const {
-      productId,
-      productName,
-      productDescription,
-      price,
-      category,
-      registrationDate,
-    } = product;
-    return {
-      productId: productId,
-      productName: productName,
-      productDescription:
-        productDescription.length > DESCRIPTION_TEXT_MAX_SIZE
-          ? productDescription.slice(0, DESCRIPTION_TEXT_MAX_SIZE) + "..."
-          : productDescription,
-      price: Number(price).toLocaleString("ko-KR") + "원",
-      categoryName: "분류: " + category.categoryName,
-      registrationDate: formatDateTime(registrationDate),
-    };
-  });
+  return (
+    products &&
+    products.map((product) => {
+      const {
+        productId,
+        productName,
+        productDescription,
+        price,
+        category,
+        registrationDate,
+      } = product;
+      return {
+        productId: productId,
+        productName: productName,
+        productDescription:
+          productDescription.length > DESCRIPTION_TEXT_MAX_SIZE
+            ? productDescription.slice(0, DESCRIPTION_TEXT_MAX_SIZE) + "..."
+            : productDescription,
+        price: Number(price).toLocaleString("ko-KR") + "원",
+        categoryName: "분류: " + category.categoryName,
+        registrationDate: formatDateTime(registrationDate),
+      };
+    })
+  );
 };
 
 const formatDateTime = (dateTimeString) => {
