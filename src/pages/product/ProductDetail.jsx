@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Card, Container, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProduct } from "../../apis/api/product";
 import { getProductDetail } from "../../apis/services/product";
+import { AuthContext } from "../../App";
 
 export const ProductDetail = () => {
   const { productId } = useParams();
   const navigator = useNavigate();
+  const { isLogin } = useContext(AuthContext);
   const [product, setProduct] = useState();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -44,7 +46,11 @@ export const ProductDetail = () => {
             <Card.Text>재고수량: {product.stock}</Card.Text>
             <Card.Text>카테고리: {product.categoryName}</Card.Text>
             <Card.Text>등록날짜: {product.registrationDate}</Card.Text>
-            <Button variant="primary" onClick={() => navigator("/order/add")}>
+            <Button
+              variant="primary"
+              disabled={!isLogin}
+              onClick={() => navigator(`/order/add/${productId}`)}
+            >
               구매하기
             </Button>
           </Card.Body>
